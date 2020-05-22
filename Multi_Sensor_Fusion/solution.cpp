@@ -7,12 +7,6 @@ const int mapHeight = 2;
 
 void sensorFusion(double m1[][mapWidth], double m2[][mapWidth])
 {
-    //*#############TODO: Code the Sensor Fusion Function############*//
-    // Fuse the measurments of the two maps and print the resulting 
-    //map in a matrix form:
-    //a  b
-    //c  d
-
     for (int x = 0; x < mapHeight; x++) {
         for (int y = 0; y < mapWidth; y++) {
             double p = 1 - (1 - m1[x][y]) * (1 - m2[x][y]);
