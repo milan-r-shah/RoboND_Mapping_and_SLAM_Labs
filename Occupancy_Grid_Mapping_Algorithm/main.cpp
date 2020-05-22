@@ -18,8 +18,51 @@ vector< vector<double> > l(mapWidth/gridWidth, vector<double>(mapHeight/gridHeig
 
 double inverseSensorModel(double x, double y, double theta, double xi, double yi, double sensorData[])
 {
-    // You will be coding this section in the upcoming concept! 
-    return 0.4;
+    // // You will be coding this section in the upcoming concept! 
+    // return 0.4;
+
+    //******************Code the Inverse Sensor Model Algorithm**********************//
+    // Defining Sensor Characteristics
+    double Zk, thetaK, sensorTheta;
+    double minDelta = -1;
+    double alpha = 200, beta = 20;
+
+    //******************TODO: Compute r and phi**********************//
+   
+
+    //Scaling Measurement to [-90 -37.5 -22.5 -7.5 7.5 22.5 37.5 90]
+    for (int i = 0; i < 8; i++) {
+        if (i == 0) {
+            sensorTheta = -90 * (M_PI / 180);
+        }
+        else if (i == 1) {
+            sensorTheta = -37.5 * (M_PI / 180);
+        }
+        else if (i == 6) {
+            sensorTheta = 37.5 * (M_PI / 180);
+        }
+        else if (i == 7) {
+            sensorTheta = 90 * (M_PI / 180);
+        }
+        else {
+            sensorTheta = (-37.5 + (i - 1) * 15) * (M_PI / 180);
+        }
+
+        if (fabs(phi - sensorTheta) < minDelta || minDelta == -1) {
+            Zk = sensorData[i];
+            thetaK = sensorTheta;
+            minDelta = fabs(phi - sensorTheta);
+        }
+    }
+
+    //******************TODO: Evaluate the three cases**********************//
+    // You also have to consider the cells with Zk > Zmax or Zk < Zmin as unkown states
+    
+    
+    
+    
+    
+
 }
 
 void occupancyGridMapping(double Robotx, double Roboty, double Robottheta, double sensorData[])
