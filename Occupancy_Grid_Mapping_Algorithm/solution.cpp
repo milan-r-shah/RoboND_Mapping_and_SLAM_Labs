@@ -1,7 +1,10 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include "src/matplotlibcpp.h" //Graph Library
+
 using namespace std;
+namespace plt = matplotlibcpp;
 
 // Sensor characteristic: Min and Max ranges of the beams
 double Zmax = 5000, Zmin = 170;
@@ -84,6 +87,34 @@ void occupancyGridMapping(double Robotx, double Roboty, double Robottheta, doubl
     }
 }
 
+void visualization()
+{
+    //Graph Format
+    plt::title("Map");
+    plt::xlim(0, (int)(mapWidth / gridWidth));
+    plt::ylim(0, (int)(mapHeight / gridHeight));
+
+    // Draw every grid of the map:
+    for (double x = 0; x < mapWidth / gridWidth; x++) {
+        cout << "Remaining Rows= " << mapWidth / gridWidth - x << endl;
+        for (double y = 0; y < mapHeight / gridHeight; y++) {
+            if (l[x][y] == 0) { //Green unkown state
+                plt::plot({ x }, { y }, "g.");
+            }
+            else if (l[x][y] > 0) { //Black occupied state
+                plt::plot({ x }, { y }, "k.");
+            }
+            else { //Red free state
+                plt::plot({ x }, { y }, "r.");
+            }
+        }
+    }
+
+    //Save the image and close the plot
+    plt::save("./Images/Map.png");
+    plt::clf();
+}
+
 int main()
 {
     double timeStamp;
@@ -102,12 +133,17 @@ int main()
         occupancyGridMapping(robotX, robotY, (robotTheta / 10) * (M_PI / 180), measurementData);
     }
     
-    // Displaying the map
-    for (int x = 0; x < mapWidth / gridWidth; x++) {
-        for (int y = 0; y < mapHeight / gridHeight; y++) {
-            cout << l[x][y] << " ";
-        }
-    }
+    // // Displaying the map
+    // for (int x = 0; x < mapWidth / gridWidth; x++) {
+    //     for (int y = 0; y < mapHeight / gridHeight; y++) {
+    //         cout << l[x][y] << " ";
+    //     }
+    // }
+
+    // Visualize the map at the final step
+    cout << "Wait for the image to generate" << endl;
+    visualization();
+    cout << "Done!" << endl;
     
     return 0;
 }
