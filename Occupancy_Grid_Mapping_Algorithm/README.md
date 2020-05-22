@@ -11,3 +11,12 @@ In this code, a robot equipped with eight sonar rangefinder sensors circulates i
 #### Main Function
 1. ```File Scan```: Scanning both the measurement and poses files to retrieve the values. At each time stamp, the values are passed to the occupancy grid mapping function.
 2. ```Display Map```: After processing all the measurements and poses, the map is displayed.
+
+#### Summary of notations for the sonar rangefinder inverse sensor model:
+
+- ```m```<sub>```i```</sub> : Map at instant i or current cell that is being processed
+- ```x```<sub>```i```</sub>, ```y```<sub>```i```</sub> : Center of mass of the current cell mi
+- ```r``` : Range of the center of mass computed with respect to robot pose and center of mass
+- ```k``` : The sonar rangefinder cone that best aligns with the cell being considered computed with respect to the robot pose (x,y,\thetaθ), center of mass (xi,yi), and sensor angle.
+- ```β``` : Opening angle of the conical region formed out of the measurement beams.
+- ```α``` : Width of obstacles which is almost equal to the size of a cell. Please not that alpha is not the width of the conical region as the video mention but instead it's the width of a cell.
